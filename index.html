@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gästezufriedenheit – Arlberg WellCom</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --alpine-deep: #1a2a3a;
+    --alpine-mid: #2c4a5e;
+    --glacier: #7eb8ce;
+    --snow: #f5f8fa;
+    --mist: #e8eef2;
+    --gold: #c9a84c;
+    --gold-light: #e8cc80;
+    --text-dark: #1a2a3a;
+    --text-mid: #4a6070;
+    --text-light: #8aa0b0;
+    --white: #ffffff;
+    --shadow: 0 4px 24px rgba(26,42,58,0.10);
+    --shadow-lg: 0 8px 40px rgba(26,42,58,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--snow);
+    color: var(--text-dark);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Mountain silhouette background */
+  body::before {
+    content: '';
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 340px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 340'%3E%3Cpath fill='%232c4a5e' fill-opacity='0.07' d='M0,340 L0,200 L120,120 L240,180 L360,80 L480,160 L600,40 L720,140 L840,60 L960,160 L1080,90 L1200,170 L1320,100 L1440,180 L1440,340 Z'/%3E%3Cpath fill='%231a2a3a' fill-opacity='0.05' d='M0,340 L0,240 L180,160 L300,220 L420,140 L540,200 L660,100 L780,180 L900,120 L1020,200 L1140,130 L1260,210 L1380,150 L1440,220 L1440,340 Z'/%3E%3C/svg%3E") no-repeat bottom center;
+    background-size: cover;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Snowflake decoration */
+  body::after {
+    content: '❄';
+    position: fixed;
+    top: 40px; right: 60px;
+    font-size: 80px;
+    color: var(--glacier);
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 0;
+    animation: drift 8s ease-in-out infinite;
+  }
+
+  @keyframes drift {
+    0%, 100% { transform: rotate(0deg) translateY(0); }
+    50% { transform: rotate(20deg) translateY(-12px); }
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, var(--alpine-deep) 0%, var(--alpine-mid) 100%);
+    color: var(--white);
+    padding: 48px 24px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(126,184,206,0.18) 0%, transparent 70%);
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+  }
+
+  .header-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 12px;
+    position: relative; z-index: 1;
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 5vw, 36px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    position: relative; z-index: 1;
+  }
+
+  .header-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.75);
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.6;
+    position: relative; z-index: 1;
+  }
+
+  .header-divider {
+    width: 60px; height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    margin: 20px auto 0;
+    position: relative; z-index: 1;
+    border-radius: 2px;
+  }
+
+  /* Main container */
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+    position: relative; z-index: 1;
+  }
+
+  /* Section card */
+  .section-card {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    margin-bottom: 28px;
+    overflow: hidden;
+    animation: slideUp 0.5s ease both;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-card:nth-child(1) { animation-delay: 0.05s; }
+  .section-card:nth-child(2) { animation-delay: 0.10s; }
+  .section-card:nth-child(3) { animation-delay: 0.15s; }
+  .section-card:nth-child(4) { animation-delay: 0.20s; }
+  .section-card:nth-child(5) { animation-delay: 0.25s; }
+  .section-card:nth-child(6) { animation-delay: 0.30s; }
+  .section-card:nth-child(7) { animation-delay: 0.35s; }
+
+  .section-header {
+    background: linear-gradient(135deg, var(--alpine-deep), var(--alpine-mid));
+    color: var(--white);
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .section-letter {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.25);
+    border: 1.5px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gold-light);
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  .section-body {
+    padding: 28px;
+  }
+
+  /* Date field */
+  .date-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 28px;
+    background: var(--mist);
+    border-bottom: 1px solid #dde6ec;
+  }
+
+  .date-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-mid);
+    white-space: nowrap;
+  }
+
+  .date-input {
+    border: 1.5px solid #c8d8e4;
+    border-radius: 8px;
+    padding: 9px 14px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    color: var(--text-dark);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .date-input:focus { border-color: var(--glacier); }
+
+  /* Questions */
+  .question {
+    margin-bottom: 24px;
+  }
+
+  .question:last-child { margin-bottom: 0; }
+
+  .question-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .question-num {
+    display: inline-block;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--glacier);
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 24px;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+
+  /* Checkbox groups */
+  .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .checkbox-group.column {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1.5px solid var(--mist);
+    background: var(--snow);
+    font-size: 14px;
+    color: var(--text-mid);
+    transition: all 0.18s ease;
+    user-select: none;
+  }
+
+  .checkbox-item:hover {
+    border-color: var(--glacier);
+    background: rgba(126,184,206,0.08);
+    color: var(--text-dark);
+  }
+
+  .checkbox-item input[type="checkbox"],
+  .checkbox-item input[type="radio"] {
+    display: none;
+  }
+
+  .custom-check {
+    width: 18px; height: 18px;
+    border: 2px solid #b0c8d8;
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.18s;
+    background: var(--white);
+  }
+
+  .custom-radio .custom-check {
+    border-radius: 50%;
+  }
+
+  .checkbox-item input:checked + .custom-check {
+    background: var(--alpine-mid);
+    border-color: var(--alpine-mid);
+  }
+
+  .checkbox-item input:checked + .custom-check::after {
+    content: '✓';
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .custom-radio .checkbox-item input:checked + .custom-check::after {
+    content: '';
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--white);
+  }
+
+  .checkbox-item:has(input:checked) {
+    border-color: var(--alpine-mid);
+    background: rgba(44,74,94,0.07);
+    color: var(--text-dark);
+  }
+
+  /* Other input */
+  .other-input {
+    border: 1.5px solid #c8d8e4;
+    border-radius: 8px;
+    padding: 9px 14px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    color: var(--text-dark);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.2s;
+    width: 200px;
+  }
+  .other-input:focus { border-color: var(--glacier); }
+
+  /* Rating scale */
+  .rating-legend {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-light);
+    margin-bottom: 14px;
+    padding: 0 2px;
+  }
+
+  .rating-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .rating-table th {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-light);
+    text-align: center;
+    padding: 6px 4px 10px;
+    letter-spacing: 0.5px;
+  }
+
+  .rating-table th:first-child { text-align: left; }
+
+  .rating-table td {
+    padding: 10px 4px;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--mist);
+  }
+
+  .rating-table td:first-child {
+    text-align: left;
+    font-size: 14px;
+    color: var(--text-dark);
+    padding-right: 16px;
+    line-height: 1.4;
+  }
+
+  .rating-table tr:last-child td { border-bottom: none; }
+
+  .rating-table tr:hover td { background: rgba(126,184,206,0.05); }
+
+  /* Star radio buttons */
+  .star-radio {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 2px solid #c8d8e4;
+    background: var(--white);
+    cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-light);
+    transition: all 0.18s;
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+  }
+
+  .star-radio::after {
+    content: attr(data-val);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .star-radio:hover {
+    border-color: var(--glacier);
+    color: var(--alpine-mid);
+    background: rgba(126,184,206,0.12);
+  }
+
+  .star-radio:checked {
+    background: var(--alpine-mid);
+    border-color: var(--alpine-mid);
+    color: var(--white);
+    box-shadow: 0 2px 8px rgba(44,74,94,0.3);
+  }
+
+  /* Sub-section */
+  .sub-section {
+    margin-bottom: 28px;
+  }
+  .sub-section:last-child { margin-bottom: 0; }
+
+  .sub-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--alpine-mid);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--mist);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .sub-icon {
+    font-size: 18px;
+  }
+
+  /* Textarea */
+  .open-textarea {
+    width: 100%;
+    min-height: 80px;
+    border: 1.5px solid #c8d8e4;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    color: var(--text-dark);
+    background: var(--snow);
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    line-height: 1.6;
+  }
+
+  .open-textarea:focus {
+    border-color: var(--glacier);
+    background: var(--white);
+  }
+
+  /* Submit */
+  .submit-wrap {
+    text-align: center;
+    margin-top: 12px;
+  }
+
+  .btn-submit {
+    background: linear-gradient(135deg, var(--alpine-deep), var(--alpine-mid));
+    color: var(--white);
+    border: none;
+    border-radius: 50px;
+    padding: 16px 52px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(26,42,58,0.25);
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-submit::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.4s;
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(26,42,58,0.30);
+  }
+
+  .btn-submit:hover::before { left: 100%; }
+  .btn-submit:active { transform: translateY(0); }
+
+  /* Success message */
+  .success-msg {
+    display: none;
+    background: linear-gradient(135deg, var(--alpine-deep), var(--alpine-mid));
+    color: var(--white);
+    border-radius: 16px;
+    padding: 48px 32px;
+    text-align: center;
+    animation: slideUp 0.4s ease;
+  }
+
+  .success-msg.show { display: block; }
+
+  .success-icon {
+    font-size: 56px;
+    margin-bottom: 20px;
+  }
+
+  .success-msg h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    margin-bottom: 12px;
+  }
+
+  .success-msg p {
+    color: rgba(255,255,255,0.8);
+    font-size: 16px;
+  }
+
+  /* References */
+  .references {
+    margin-top: 8px;
+    padding: 20px 28px;
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.7;
+    border-top: 1px solid var(--mist);
+  }
+
+  .references strong {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--text-mid);
+    font-size: 13px;
+  }
+
+  @media (max-width: 540px) {
+    .section-body { padding: 20px; }
+    .checkbox-group { gap: 8px; }
+    .star-radio { width: 28px; height: 28px; font-size: 11px; }
+    .rating-table td:first-child { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-logo">Arlberg WellCom</div>
+  <h1>Gästezufriedenheit</h1>
+  <p class="header-sub">Vielen Dank, dass Sie sich kurz Zeit nehmen! Ihre Meinung hilft uns, die Qualität und Attraktivität des Arlberg WellCom stetig zu verbessern.<br><em style="font-size:13px; opacity:0.65;">(ca. 3–4 Minuten)</em></p>
+  <div class="header-divider"></div>
+</header>
+
+<div class="container" id="formContainer">
+
+  <!-- Date -->
+  <div class="section-card" style="background: var(--white); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; animation: slideUp 0.5s ease both;">
+    <div class="date-row">
+      <span class="date-label">Aktuelles Datum</span>
+      <input type="date" class="date-input" id="visitDate">
+    </div>
+  </div>
+
+  <!-- A: Angaben zur Person -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-letter">A</div>
+      <div class="section-title">Angaben zur Person</div>
+    </div>
+    <div class="section-body">
+
+      <div class="question">
+        <div class="question-label"><span class="question-num">1</span>Altersgruppe</div>
+        <div class="checkbox-group custom-radio">
+          <label class="checkbox-item">
+            <input type="radio" name="alter" value="unter18">
+            <span class="custom-check"></span>unter 18
+          </label>
+          <label class="checkbox-item">
+            <input type="radio" name="alter" value="18-29">
+            <span class="custom-check"></span>18–29
+          </label>
+          <label class="checkbox-item">
+            <input type="radio" name="alter" value="30-44">
+            <span class="custom-check"></span>30–44
+          </label>
+          <label class="checkbox-item">
+            <input type="radio" name="alter" value="45-59">
+            <span class="custom-check"></span>45–59
+          </label>
+          <label class="checkbox-item">
+            <input type="radio" name="alter" value="60plus">
+            <span class="custom-check"></span>60+
+          </label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-label"><span class="question-num">2</span>Geschlecht</div>
+        <div class="checkbox-group custom-radio">
+          <label class="checkbox-item">
+            <input type="radio" name="geschlecht" value="maennlich">
+            <span class="custom-check"></span>männlich
+          </label>
+          <label class="checkbox-item">
+            <input type="radio" name="geschlecht" value="weiblich">
+            <span class="custom-check"></span>weiblich
+          </label>
+          <label class="checkbox-item">
+            <input type="radio" name="geschlecht" value="divers">
+            <span class="custom-check"></span>divers
+          </label>
+          <label class="checkbox-item">
+            <input type="radio" name="geschlecht" value="keine">
+            <span class="custom-check"></span>keine Angabe
+          </label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-label"><span class="question-num">3</span>Welche Beschreibung trifft auf Sie zu?</div>
+        <div class="checkbox-group custom-radio">
+          <label class="checkbox-item">
+            <input type="radio" name="gasttyp" value="uebernachtung">
+            <span class="custom-check"></span>Übernachtungsgast
+          </label>
+          <label class="checkbox-item">
+            <input type="radio" name="gasttyp" value="tagesgast">
+            <span class="custom-check"></span>Tagesgast
+          </label>
+          <label class="checkbox-item">
+            <input type="radio" name="gasttyp" value="einheimisch">
+            <span class="custom-check"></span>Einheimische/r
+          </label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-label"><span class="question-num">4</span>Was war der Hauptgrund Ihres heutigen Besuchs?</div>
+        <div class="checkbox-group">
+          <label class="checkbox-item">
+            <input type="checkbox" name="grund" value="entspannung">
+            <span class="custom-check"></span>Entspannung / Erholung
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="grund" value="sport">
+            <span class="custom-check"></span>Sport / Fitness
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="grund" value="schlechtwetter">
+            <span class="custom-check"></span>Schlechtwetterprogramm
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="grund" value="familie">
+            <span class="custom-check"></span>Familienausflug
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="grund" value="ski">
+            <span class="custom-check"></span>Ergänzung zum Skiurlaub
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="grund" value="wandern">
+            <span class="custom-check"></span>Ergänzung zum Wanderurlaub
+          </label>
+          <label class="checkbox-item" style="gap:8px;">
+            <input type="checkbox" name="grund" value="sonstiges">
+            <span class="custom-check"></span>Sonstiges:&nbsp;<input type="text" class="other-input" placeholder="Bitte angeben …">
+          </label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- B: Nutzung -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-letter">B</div>
+      <div class="section-title">Nutzung der Angebote</div>
+    </div>
+    <div class="section-body">
+      <div class="question">
+        <div class="question-label"><span class="question-num">5</span>Welche Bereiche haben Sie heute genutzt?</div>
+        <div class="checkbox-group">
+          <label class="checkbox-item">
+            <input type="checkbox" name="bereiche" value="schwimmbad">
+            <span class="custom-check"></span>🏊 Schwimmbad
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="bereiche" value="sauna">
+            <span class="custom-check"></span>🧖 Sauna
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="bereiche" value="fitness">
+            <span class="custom-check"></span>💪 Fitnessstudio
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="bereiche" value="kinder">
+            <span class="custom-check"></span>👨‍👩‍👧 Kinderbereich
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="bereiche" value="massage">
+            <span class="custom-check"></span>💆 Massage / Wellness
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="bereiche" value="gastro">
+            <span class="custom-check"></span>🍽️ Gastronomie
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C: Bewertung -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-letter">C</div>
+      <div class="section-title">Bewertung Ihres Aufenthalts</div>
+    </div>
+    <div class="section-body">
+      <div class="rating-legend">
+        <span>1 = stimme überhaupt nicht zu</span>
+        <span>5 = stimme voll und ganz zu</span>
+      </div>
+      <table class="rating-table">
+        <thead>
+          <tr>
+            <th>Aussage</th>
+            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+          </tr>
+        </thead>
+        <tbody id="ratingC"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- D: Bereichsspezifisch -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-letter">D</div>
+      <div class="section-title">Bereichsspezifische Bewertung</div>
+    </div>
+    <div class="section-body">
+
+      <div class="sub-section">
+        <div class="sub-title"><span class="sub-icon">🏊</span>Schwimmbad</div>
+        <table class="rating-table">
+          <thead><tr><th>Aussage</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead>
+          <tbody id="ratingD1"></tbody>
+        </table>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title"><span class="sub-icon">🧖</span>Sauna</div>
+        <table class="rating-table">
+          <thead><tr><th>Aussage</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead>
+          <tbody id="ratingD2"></tbody>
+        </table>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title"><span class="sub-icon">💪</span>Fitnessstudio</div>
+        <table class="rating-table">
+          <thead><tr><th>Aussage</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead>
+          <tbody id="ratingD3"></tbody>
+        </table>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title"><span class="sub-icon">👨‍👩‍👧</span>Familienfreundlichkeit</div>
+        <table class="rating-table">
+          <thead><tr><th>Aussage</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead>
+          <tbody id="ratingD4"></tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- E: Digitalisierung -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-letter">E</div>
+      <div class="section-title">Digitalisierung &amp; Innovation</div>
+    </div>
+    <div class="section-body">
+      <div class="rating-legend">
+        <span>1 = stimme überhaupt nicht zu</span>
+        <span>5 = stimme voll und ganz zu</span>
+      </div>
+      <table class="rating-table">
+        <thead><tr><th>Aussage</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead>
+        <tbody id="ratingE"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- F: Gesamtzufriedenheit -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-letter">F</div>
+      <div class="section-title">Gesamtzufriedenheit</div>
+    </div>
+    <div class="section-body">
+
+      <div class="question">
+        <div class="question-label"><span class="question-num">6</span>Wie zufrieden waren Sie insgesamt mit Ihrem heutigen Besuch?</div>
+        <div class="checkbox-group custom-radio">
+          <label class="checkbox-item"><input type="radio" name="gesamt" value="sehr_unzufrieden"><span class="custom-check"></span>😞 sehr unzufrieden</label>
+          <label class="checkbox-item"><input type="radio" name="gesamt" value="eher_unzufrieden"><span class="custom-check"></span>🙁 eher unzufrieden</label>
+          <label class="checkbox-item"><input type="radio" name="gesamt" value="neutral"><span class="custom-check"></span>😐 neutral</label>
+          <label class="checkbox-item"><input type="radio" name="gesamt" value="eher_zufrieden"><span class="custom-check"></span>🙂 eher zufrieden</label>
+          <label class="checkbox-item"><input type="radio" name="gesamt" value="sehr_zufrieden"><span class="custom-check"></span>😄 sehr zufrieden</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-label"><span class="question-num">7</span>Würden Sie das Arlberg WellCom weiterempfehlen?</div>
+        <div class="checkbox-group custom-radio">
+          <label class="checkbox-item"><input type="radio" name="empfehlung" value="keinesfalls"><span class="custom-check"></span>auf keinen Fall</label>
+          <label class="checkbox-item"><input type="radio" name="empfehlung" value="eher_nicht"><span class="custom-check"></span>eher nicht</label>
+          <label class="checkbox-item"><input type="radio" name="empfehlung" value="vielleicht"><span class="custom-check"></span>vielleicht</label>
+          <label class="checkbox-item"><input type="radio" name="empfehlung" value="wahrscheinlich"><span class="custom-check"></span>wahrscheinlich</label>
+          <label class="checkbox-item"><input type="radio" name="empfehlung" value="auf_jeden_fall"><span class="custom-check"></span>auf jeden Fall</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-label"><span class="question-num">8</span>Würden Sie das Arlberg WellCom erneut besuchen?</div>
+        <div class="checkbox-group custom-radio">
+          <label class="checkbox-item"><input type="radio" name="wiederkehr" value="nein"><span class="custom-check"></span>nein</label>
+          <label class="checkbox-item"><input type="radio" name="wiederkehr" value="eher_nein"><span class="custom-check"></span>eher nein</label>
+          <label class="checkbox-item"><input type="radio" name="wiederkehr" value="vielleicht"><span class="custom-check"></span>vielleicht</label>
+          <label class="checkbox-item"><input type="radio" name="wiederkehr" value="eher_ja"><span class="custom-check"></span>eher ja</label>
+          <label class="checkbox-item"><input type="radio" name="wiederkehr" value="ja"><span class="custom-check"></span>ja</label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- G: Offene Fragen -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-letter">G</div>
+      <div class="section-title">Offene Fragen</div>
+    </div>
+    <div class="section-body">
+
+      <div class="question">
+        <div class="question-label"><span class="question-num">9</span>Was hat Ihnen besonders gut gefallen?</div>
+        <textarea class="open-textarea" placeholder="Ihre Antwort …" id="q9"></textarea>
+      </div>
+
+      <div class="question">
+        <div class="question-label"><span class="question-num">10</span>Was könnten wir verbessern?</div>
+        <textarea class="open-textarea" placeholder="Ihre Antwort …" id="q10"></textarea>
+      </div>
+
+      <div class="question">
+        <div class="question-label"><span class="question-num">11</span>Welche zusätzlichen Angebote oder Services würden Sie sich wünschen?</div>
+        <textarea class="open-textarea" placeholder="Ihre Antwort …" id="q11"></textarea>
+      </div>
+
+    </div>
+
+    <div class="references">
+      <strong>Wissenschaftliche Grundlage</strong>
+      Parasuraman, A., Zeithaml, V. A., &amp; Berry, L. L. (1988). SERVQUAL: A multiple-item scale for measuring consumer perceptions of service quality. <em>Journal of Retailing, 64</em>(1), 12–40. &nbsp;·&nbsp;
+      Yoon, Y., &amp; Uysal, M. (2005). An examination of the effects of motivation and satisfaction on destination loyalty. <em>Tourism Management, 26</em>(1), 45–56.
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <div class="submit-wrap">
+    <button class="btn-submit" onclick="submitForm()">Fragebogen absenden ✦</button>
+  </div>
+
+  <!-- Success -->
+  <div class="success-msg" id="successMsg">
+    <div class="success-icon">❄️</div>
+    <h2>Vielen Dank für Ihr Feedback!</h2>
+    <p>Ihre Antworten wurden übermittelt. Wir freuen uns, Sie bald wieder im Arlberg WellCom begrüßen zu dürfen.</p>
+  </div>
+
+</div>
+
+<script>
+  // Rating questions data
+  const questionsC = [
+    { id: 'c1', text: 'Der Eingangsbereich war gut organisiert.' },
+    { id: 'c2', text: 'Die Wartezeit beim Eintritt war angenehm.' },
+    { id: 'c3', text: 'Die Mitarbeiter:innen waren freundlich und hilfsbereit.' },
+    { id: 'c4', text: 'Die Sauberkeit im gesamten Areal war sehr gut.' },
+    { id: 'c5', text: 'Die Garderoben boten ausreichend Platz zum Umziehen.' },
+    { id: 'c6', text: 'Die Spinde boten ausreichend Platz zum Verstauen persönlicher Gegenstände.' },
+    { id: 'c7', text: 'Die Beschilderungen waren verständlich und man konnte sich gut orientieren.' },
+    { id: 'c8', text: 'Das Preis-Leistungs-Verhältnis war angemessen.' },
+  ];
+
+  const questionsD1 = [
+    { id: 'd1_1', text: 'Es gab ausreichend Liegeflächen.' },
+    { id: 'd1_2', text: 'Die Wasserqualität war angenehm.' },
+    { id: 'd1_3', text: 'Der Außenbereich war attraktiv gestaltet.' },
+  ];
+
+  const questionsD2 = [
+    { id: 'd2_1', text: 'Die Saunalandschaft bot genügend Ruhe und Freiraum.' },
+    { id: 'd2_2', text: 'Die Ausstattung der Sauna entsprach meinen Erwartungen.' },
+  ];
+
+  const questionsD3 = [
+    { id: 'd3_1', text: 'Das Fitnessstudio bot genügend Platz und die Geräteausstattung war angemessen.' },
+  ];
+
+  const questionsD4 = [
+    { id: 'd4_1', text: 'Das Angebot für Kinder und Familien war passend.' },
+  ];
+
+  const questionsE = [
+    { id: 'e1', text: 'Digitale Check-ins würden meinen Besuch erleichtern.' },
+    { id: 'e2', text: 'Multifunktionale Chip-Armbänder wären für mich sinnvoll und wünschenswert.' },
+  ];
+
+  function buildRatingTable(tbodyId, questions) {
+    const tbody = document.getElementById(tbodyId);
+    questions.forEach(q => {
+      const tr = document.createElement('tr');
+      let cells = `<td>${q.text}</td>`;
+      for (let v = 1; v <= 5; v++) {
+        cells += `<td><input type="radio" class="star-radio" data-val="${v}" name="${q.id}" value="${v}" title="${v}"></td>`;
+      }
+      tr.innerHTML = cells;
+      tbody.appendChild(tr);
+    });
+
+    // Style radios after insert
+    tbody.querySelectorAll('input[type="radio"]').forEach(r => {
+      r.style.cssText = `
+        width:32px;height:32px;border-radius:50%;border:2px solid #c8d8e4;
+        background:#fff;cursor:pointer;display:inline-flex;align-items:center;
+        justify-content:center;font-size:12px;font-weight:700;color:#8aa0b0;
+        transition:all 0.18s;-webkit-appearance:none;appearance:none;
+        position:relative;
+      `;
+      r.setAttribute('data-val', r.value);
+
+      // Draw number inside via pseudo – use label trick
+      const lbl = document.createElement('label');
+      lbl.setAttribute('for', r.id || '');
+      r.parentNode.style.position = 'relative';
+
+      r.addEventListener('change', () => {
+        const siblings = tbody.querySelectorAll(`input[name="${r.name}"]`);
+        siblings.forEach(s => {
+          s.style.background = '#fff';
+          s.style.borderColor = '#c8d8e4';
+          s.style.color = '#8aa0b0';
+          s.style.boxShadow = 'none';
+          s.textContent = '';
+        });
+        r.style.background = '#2c4a5e';
+        r.style.borderColor = '#2c4a5e';
+        r.style.color = '#fff';
+        r.style.boxShadow = '0 2px 8px rgba(44,74,94,0.3)';
+      });
+
+      // Show number
+      const wrapper = document.createElement('div');
+      wrapper.style.cssText = 'position:relative;display:inline-block;';
+      r.parentNode.insertBefore(wrapper, r);
+      wrapper.appendChild(r);
+
+      const num = document.createElement('span');
+      num.textContent = r.value;
+      num.style.cssText = `
+        position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+        font-size:12px;font-weight:700;color:inherit;pointer-events:none;
+      `;
+      wrapper.appendChild(num);
+
+      r.addEventListener('change', () => {
+        const allWrappers = tbody.querySelectorAll(`input[name="${r.name}"]`);
+        allWrappers.forEach(s => {
+          s.nextElementSibling.style.color = '#8aa0b0';
+        });
+        r.nextElementSibling.style.color = '#fff';
+      });
+    });
+  }
+
+  // Build all tables
+  buildRatingTable('ratingC', questionsC);
+  buildRatingTable('ratingD1', questionsD1);
+  buildRatingTable('ratingD2', questionsD2);
+  buildRatingTable('ratingD3', questionsD3);
+  buildRatingTable('ratingD4', questionsD4);
+  buildRatingTable('ratingE', questionsE);
+
+  // Set today's date
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('visitDate').value = today;
+
+  function submitForm() {
+    const container = document.getElementById('formContainer');
+    const sections = container.querySelectorAll('.section-card, .submit-wrap');
+    sections.forEach(s => { s.style.display = 'none'; });
+    document.getElementById('successMsg').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
